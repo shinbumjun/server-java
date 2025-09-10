@@ -31,6 +31,9 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 | 클라우드/ <br> 배포 <br> (진행중) | GitHub Actions, Docker Compose, AWS EC2 | GitHub Actions로 CI/CD 자동화, Docker Compose로 환경 일관성 확보, AWS EC2 프리티어로 비용 절감 | - main 브랜치 푸시 시  <br> 자동 빌드/배포 <br> - BE/DB/Redis/Kafka를 Docker Compose로 관리 <br> - AWS EC2에 배포 |
 | 모니터링 <br> (진행중)    | Scouter APM                     | WAS 성능 및 트랜잭션 모니터링 지원 | - JVM/SQL 성능 모니터링 <br> - 실시간 로그 및 메트릭 확인 |
 | 환경 변수 <br> 관리  | .env                   | 민감 정보 별도 관리로 보안 강화 | - DB 계정, JWT Secret, <br>Kakao API Key 관리 |
+| 프론트엔드 | React(ts), Vite, Axios | 빠른 번들링(Vite)과 간단한 API 호출(Axios)로 효율적인 UI/데이터 연동 | - API 호출 |
+| 빌드 도구 | Gradle | 의존성 관리 및 빌드 자동화 | - Spring Boot 프로젝트 빌드/테스트/배포 |
+| 테스트/협업 | Postman, GitHub PR | API 테스트 및 협업 표준화 | - API 시나리오 테스트 <br> - 브랜치 전략 & 코드 리뷰 |
 
 ---
 
@@ -62,15 +65,15 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 - 목적: 환경 재현성, 로컬 일괄 기동, Kafka-UI & Scouter로 가시성 확보
 
 ### Prod (AWS)
-- 경로: **CloudFront+S3 → Nginx/ALB → EC2(App) → RDS / Redis / Kafka**
+- 경로: CloudFront+S3 → Nginx/ALB → EC2(App) → RDS / Redis / Kafka
 - **FE**: CloudFront+S3로 정적 파일(CSS/JS/이미지 등)을 CDN 캐싱해 전송 속도 최적화  
 - **Nginx/ALB**: API 요청을 받아 EC2(App) 인스턴스로 **트래픽 분산** 처리  
 - **BE**: EC2 컨테이너에서 Spring Boot 실행  
 - **DB/캐시/메시징**: 초기엔 EC2+Compose로 시작 → 트래픽 증가 시 **RDS / ElastiCache / MSK**로 확장
 
 ### 배포 (CI/CD)
-- GitHub Actions로 **빌드 → Docker 이미지 푸시 → EC2 자동 배포**  
-- 인프라 생성/설정은 **콘솔 또는 IaC(Terraform 등)**로 관리
+- GitHub Actions로 빌드 → Docker 이미지 푸시 → EC2 자동 배포
+- 인프라 생성/설정은 콘솔 또는 IaC(Terraform 등)로 관리
 
 > **요약**: Dev는 간단히 한 번에 띄워 개발, Prod는 CDN·로드밸런서·매니지드 서비스로 안정성과 확장성 강화
 
@@ -99,10 +102,61 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 ## 📌 주요 구현 내용
 핵심 기능 상세 (JWT 인증, 상품 조회, 결제 등)
 
+### 1. 인증/인가 (JWT + Redis)
+- Access (~15분) / Refresh (~14일) 구조
+- Refresh 토큰은 Redis에 저장 (`RT:{userId}`)
+- `/api/auth/refresh`: Access 재발급
+- `/api/auth/logout`: Redis Refresh 삭제 + 쿠키 만료
+- **실패 응답 통일**
+  ```json
+  { "status": 401, "code": "AUTH_REQUIRED", "message": "로그인이 필요합니다." }
+  ```
+
+### 2. 전역 예외 처리
+- **ErrorCode**: 상태·코드·메시지 정의
+- **BusinessException**: 서비스에서 throw
+- **GlobalExceptionHandler**: JSON 응답으로 변환
+
+### 3. 상품 상세 조회 및 카테고리 페이지
+- 상품 + 브랜드 + 이미지 + 옵션 + 리뷰 집계
+- **Facade 패턴 적용**
+  - Service: 조회 규칙, 예외 처리
+  - Facade: DTO 조립
+- QueryDSL로 정렬/페이징 최적화
+
+### 4. 카카오 주소검색 API
+- REST API 키 → `.env` 관리
+- RestTemplate Client → Service → Controller 분리
+- 응답 DTO: 도로명, 지번, 우편번호, 건물명 등 변환
+
+### 5. 결제
+- 카드사 인증 → 서버 응답 → PortOne(아임포트) 연동
+- 기능: 결제 / 취소 / 환불
+- 보안 및 상태 동기화 고려
+
+### 6. 프론트엔드 구조 (Atomic Design)
+
+```bash
+src/
+ ├─ api/              # API 호출 함수
+ ├─ components/
+ │   ├─ atoms/        # input, button 등 최소 단위
+ │   ├─ molecules/    # 주소 리스트 아이템 등
+ │   ├─ organisms/    # atoms + molecules 조합 (모달 등)
+ │   ├─ templates/    # 레이아웃/섹션 단위
+ ├─ pages/            # 화면 단위
+
+```
+
 ---
 
-## 🔥 BE 챌린지 & 해결
+## 🔥 BE 챌린지 & 해결 (진행 중)
 문제 상황과 해결 과정 (성능, 동시성, 보안 등)
+![ERD 다이어그램](/scouter.png)
+
+- 현재 Scouter APM 기반 모니터링 성능 분석
+- 서버 부하 테스트 및 병목 지점 확인 → 성능 개선 아이디어 정리 중
+- 진행 상황은 이미지(Scouter 대시보드 캡처)와 함께 업데이트 예정
 
 ---
 
