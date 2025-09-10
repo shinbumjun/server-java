@@ -37,11 +37,41 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 ## 📊 ER 다이어그램
 데이터 모델 설명
 [https://dbdiagram.io/d](https://dbdiagram.io/d/688c5d9ccca18e685cc6e2cf)
+![ERD 다이어그램](/ERD.png)
+**요약**
+- 총 **테이블 34개**, **외래키 42개**
+- 핵심 축: `users` → `orders` → `order_items` → `products` → `payments`
+
+**도메인별 구성**
+- **회원/계정 (4)**: 사용자/주소/파일/비밀번호 관리
+- **브랜드·카테고리·상품 (6)**: 상품/옵션/이미지/배송정책
+- **관심·최근·장바구니 (4)**: 찜/최근 본/장바구니
+- **주문·재고 (4)**: 주문/주문상품/배송/재고예약
+- **결제 (4)**: 결제/카드/카카오페이/아임포트
+- **리뷰·문의 (7)**: 리뷰/문의/상품문의
+- **쿠폰·적립금 (5)**: 쿠폰/사용내역/적립금/이력
 
 ---
 
 ## 🔨 서버 아키텍처
-배포/운영 구조
+개발/운영 구조
+![ERD 다이어그램](/Architecture.png)
+### 🧪 Dev (Local · Docker Compose)
+- 경로: **React Dev Server → Spring Boot App → Docker(Compose) → MySQL / Redis / Kafka / ZK / Scouter**
+- 목적: 환경 재현성, 로컬 일괄 기동, Kafka-UI & Scouter로 가시성 확보
+
+### 🚀 Prod (AWS)
+- 경로: **CloudFront+S3 → Nginx/ALB → EC2(App) → RDS / ElastiCache / MSK**
+- FE는 CDN(S3+CloudFront)로 정적 서빙
+- BE는 EC2 컨테이너로 운영
+- DB/캐시/메시징은 **매니지드(RDS/ElastiCache/MSK)**로 확장성·안정성 강화
+- 초기에는 **EC2 + Docker Compose**로 시작하고, 트래픽 증가 시 매니지드로 이전
+
+### 🔁 배포 (CI/CD)
+- **GitHub Actions**: 빌드/테스트 → **Docker 이미지 푸시** → **EC2에 SSH 배포**(`docker-compose up -d`)  
+- 참고: 인프라(CloudFront/S3/ALB/EC2/RDS/ElastiCache/MSK) 생성/설정은 **콘솔 또는 IaC(Terraform 등)**로 별도 관리
+
+> **한 줄 요약**: Dev는 한 번에 띄워 빠르게 개발, Prod는 보안/확장성/자동화 기준으로 단계적 전개
 
 ---
 
