@@ -54,29 +54,45 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 ---
 
 ## 🔨 서버 아키텍처
-개발/운영 구조
-![ERD 다이어그램](/Architecture.png)
-### 🧪 Dev (Local · Docker Compose)
+개발/운영 구조 (진행중)
+![Architecture](/Architecture.png)
+
+### Dev (Local · Docker Compose)
 - 경로: **React Dev Server → Spring Boot App → Docker(Compose) → MySQL / Redis / Kafka / ZK / Scouter**
 - 목적: 환경 재현성, 로컬 일괄 기동, Kafka-UI & Scouter로 가시성 확보
 
-### 🚀 Prod (AWS)
-- 경로: **CloudFront+S3 → Nginx/ALB → EC2(App) → RDS / ElastiCache / MSK**
-- FE는 CDN(S3+CloudFront)로 정적 서빙
-- BE는 EC2 컨테이너로 운영
-- DB/캐시/메시징은 **매니지드(RDS/ElastiCache/MSK)**로 확장성·안정성 강화
-- 초기에는 **EC2 + Docker Compose**로 시작하고, 트래픽 증가 시 매니지드로 이전
+### Prod (AWS)
+- 경로: **CloudFront+S3 → Nginx/ALB → EC2(App) → RDS / Redis / Kafka**
+- **FE**: CloudFront+S3로 정적 파일(CSS/JS/이미지 등)을 CDN 캐싱해 전송 속도 최적화  
+- **Nginx/ALB**: API 요청을 받아 EC2(App) 인스턴스로 **트래픽 분산** 처리  
+- **BE**: EC2 컨테이너에서 Spring Boot 실행  
+- **DB/캐시/메시징**: 초기엔 EC2+Compose로 시작 → 트래픽 증가 시 **RDS / ElastiCache / MSK**로 확장
 
-### 🔁 배포 (CI/CD)
-- **GitHub Actions**: 빌드/테스트 → **Docker 이미지 푸시** → **EC2에 SSH 배포**(`docker-compose up -d`)  
-- 참고: 인프라(CloudFront/S3/ALB/EC2/RDS/ElastiCache/MSK) 생성/설정은 **콘솔 또는 IaC(Terraform 등)**로 별도 관리
+### 배포 (CI/CD)
+- GitHub Actions로 **빌드 → Docker 이미지 푸시 → EC2 자동 배포**  
+- 인프라 생성/설정은 **콘솔 또는 IaC(Terraform 등)**로 관리
 
-> **한 줄 요약**: Dev는 한 번에 띄워 빠르게 개발, Prod는 보안/확장성/자동화 기준으로 단계적 전개
+> **요약**: Dev는 간단히 한 번에 띄워 개발, Prod는 CDN·로드밸런서·매니지드 서비스로 안정성과 확장성 강화
 
 ---
 
 ## 📂 Git 전략 & 컨벤션
 협업 방식, 커밋 컨벤션
+
+### Git Flow
+- `main`: 운영 브랜치
+- `dev`: 개발 통합 브랜치
+- `feature/*`: 기능 단위 브랜치 → dev 머지
+- `dev → main`: 팀장 승인 후 머지
+
+### Commit Message
+- `feat`: 기능 추가
+- `fix`: 버그 수정
+- `docs`: 문서 수정
+- `style`: 코드 스타일/UI
+- `refactor`: 리팩토링
+- `test`: 테스트 코드
+- `chore`: 설정/빌드 작업
 
 ---
 
