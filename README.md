@@ -56,8 +56,8 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 
 ---
 
-## 🔨 서버 아키텍처
-개발/운영 구조 (진행중)
+## 🔨 서버 아키텍처 (진행중)
+개발/운영 구조 
 ![Architecture](/Architecture.png)
 
 ### Dev (Local · Docker Compose)
@@ -161,11 +161,49 @@ src/
 ---
 
 ## 📂 프로젝트 구조
-DDD/패키지 구조 및 설계 의도
+```bash
+musinssak/
+├─ api/                          # 외부 노출 레이어 (입·출력 경계)
+│  ├─ <domain>/                  # 예: product, order, auth ...
+│  │  ├─ dto/                    # 요청/응답 DTO
+│  │  └─ facade/                 # 유즈케이스 조합/흐름 조정
+│  └─ <domain>Controller.java    # 각 도메인 컨트롤러
+│
+├─ common/                       # 전역 공통 모듈
+│  ├─ exception/                 # ErrorCode, 예외 계층, 글로벌 핸들러
+│  └─ web/                       # 공통 응답/필터/리졸버 등 웹 유틸
+│
+├─ domain/                       # 핵심 도메인 (비즈니스 규칙)
+│  ├─ <domain>/
+│  │  ├─ entity/                 # JPA 엔티티(애그리게잇 루트 중심)
+│  │  ├─ repository/             # JPA/QueryDSL 리포지토리 (도메인 관점)
+│  │  └─ service/                # 도메인 서비스(트랜잭션, 정합성)
+│  └─ ...
+│
+├─ infra/                        # 외부 시스템 어댑터 (구현 상세)
+│  ├─ external/                  # 카카오 주소검색 등 외부 API 클라이언트
+│  ├─ openapi/                   # Swagger/Springdoc(OpenAPI) 설정/그룹화
+│  ├─ security/                  # JWT, Security 설정/필터/인증 인프라
+│  └─ test/                      # 통합 테스트 보조(도커/슬라이스 등)
+
+```
+- 레이어 분리:
+api(입·출력) ↔ domain(규칙) ↔ infra(외부/구현)로 나눠 관심사 분리 & 교체 용이성 확보.
+- 도메인 중심:
+비즈니스 규칙은 domain에 집중(엔티티/서비스/리포지토리), 컨트롤러는 얇게 유지.
+- 파사드 도입:
+api/<domain>/facade가 유즈케이스 오케스트레이션과 DTO 조립 담당 → 서비스 간 순환참조 방지.
+- 외부 연동 캡슐화:
+infra/external에 외부 API 클라이언트를 모아 에러/재시도/DTO 매핑을 표준화.
+- 문서·보안 표준화:
+infra/openapi(API 문서), infra/security(JWT/필터)로 일관된 진입/문서/인증 체계 제공.
+- 테스트 재현성:
+infra/test로 통합 테스트 환경 보조(도커/슬라이스) → 안정적 회귀 검증.
+
 
 ---
 
-## 🚀 CI/CD 파이프라인
+## 🚀 CI/CD 파이프라인 (진행중)
 Github Actions, Docker, 배포 자동화
 
 ---
