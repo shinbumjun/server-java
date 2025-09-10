@@ -39,7 +39,7 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 
 ## 📊 ER 다이어그램
 [ER 다이어그램 링크(클릭)](https://dbdiagram.io/d/688c5d9ccca18e685cc6e2cf)
-<img width="1328" height="782" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
 
 **요약**
 - 총 **테이블 34개**, **외래키 42개**
@@ -58,7 +58,7 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 
 ## 🔨 서버 아키텍처 (진행중)
 개발/운영 구조 
-<img width="1603" height="845" alt="Architecture" src="https://github.com/user-attachments/assets/27af25ab-7cc3-4000-a13b-70e39cd8dcc1" />
+<img width="720" height="360" alt="Architecture" src="https://github.com/user-attachments/assets/27af25ab-7cc3-4000-a13b-70e39cd8dcc1" />
 
 ### Dev (Local · Docker Compose)
 - 경로: **React Dev Server → Spring Boot App → Docker(Compose) → MySQL / Redis / Kafka / ZK / Scouter**
@@ -152,7 +152,7 @@ src/
 
 ## 🔥 BE 챌린지 & 해결 (진행 중)
 문제 상황과 해결 과정 (성능, 동시성, 보안 등)
-<img width="1174" height="690" alt="image" src="https://github.com/user-attachments/assets/200c36f0-c372-4c70-9e2d-b4b21c495689" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/200c36f0-c372-4c70-9e2d-b4b21c495689" />
 
 
 - 현재 Scouter APM 기반 모니터링 성능 분석
@@ -205,28 +205,28 @@ infra/test로 통합 테스트 환경 보조(도커/슬라이스) → 안정적 
 
 ## 📝 기타 산출물 
 1) [노션 링크(클릭)](https://www.notion.so/MUSINSSAK-232927b3f19680409c40fa27f7e3a326)
-<img width="1148" height="703" alt="image" src="https://github.com/user-attachments/assets/a7156a23-d22f-4720-8755-49c95a49877a" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/a7156a23-d22f-4720-8755-49c95a49877a" />
 
 2) [figma-Readdy(클릭)](https://www.figma.com/design/fc8K0PjzNDRMaa2yMVdnxj/MUSINSSAK?node-id=0-1&p=f&t=wXhDCAwIFIpJStCd-0)
-<img width="1055" height="800" alt="image" src="https://github.com/user-attachments/assets/a0ffd10c-1ddb-42e7-9d2e-9dbb26c9caa8" />
+<img width="720720" height="360" alt="image" src="https://github.com/user-attachments/assets/a0ffd10c-1ddb-42e7-9d2e-9dbb26c9caa8" />
 
 3) [miro 요구사항 분석(클릭)](https://miro.com/app/board/uXjVJcIUoKA=/)
-<img width="1137" height="809" alt="image" src="https://github.com/user-attachments/assets/0aee721b-d9be-4d42-b19a-03a36de019ce" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/0aee721b-d9be-4d42-b19a-03a36de019ce" />
 
 4) [API 명세서(클릭)](https://purple-meal-14c.notion.site/API-23b927b3f19680068d5dc4fc2275ec41?source=copy_link)
-<img width="1904" height="913" alt="image" src="https://github.com/user-attachments/assets/d5f95965-104b-4753-98ad-12b675e9812e" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/d5f95965-104b-4753-98ad-12b675e9812e" />
 
 5) [dbdiagram(클릭)](https://dbdiagram.io/d/688c5d9ccca18e685cc6e2cf)
-<img width="1328" height="782" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
 
 6) swagger
-<img width="1087" height="905" alt="image" src="https://github.com/user-attachments/assets/fd5f5705-94c6-431a-99fb-3c06b73768d8" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/fd5f5705-94c6-431a-99fb-3c06b73768d8" />
 
 8) [작업리스트 엑셀(클릭)](https://docs.google.com/spreadsheets/d/1Vh68-0KNRvekb--CbsOYb6aNiFGwJ9OOL2VSzWvxTZc/edit?gid=0#gid=0)
-<img width="1198" height="697" alt="image" src="https://github.com/user-attachments/assets/fc44006b-4040-48a8-a0ff-c89e67c10375" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/fc44006b-4040-48a8-a0ff-c89e67c10375" />
 
 9) Sequence Diagram
-<img width="1427" height="651" alt="image (11)" src="https://github.com/user-attachments/assets/209e17bc-57bd-407f-ab67-566c14019bc9" />
+<img width="720" height="360" alt="image (11)" src="https://github.com/user-attachments/assets/209e17bc-57bd-407f-ab67-566c14019bc9" />
 
 ---
 
