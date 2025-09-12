@@ -42,7 +42,7 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 
 ## 📊 ER 다이어그램
 1) [ER 다이어그램 링크(클릭)](https://dbdiagram.io/d/688c5d9ccca18e685cc6e2cf)
-<img width="500" height="250" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
+<img width="300" height="150" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
 
 **요약**
 - 총 **테이블 34개**, **외래키 42개**
