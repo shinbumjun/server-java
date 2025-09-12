@@ -6,7 +6,9 @@
 ## 📖 웹 서비스 개요
 **소개**  
 무신삭(MUSINSSAK)은 무신사 홈페이지를 모방하여 구현한 **이커머스 쇼핑몰 플랫폼**입니다.  
-사용자는 크롤링한 상품 데이터를 기반으로 **상품 선택 → 장바구니 담기 → 주문 → 결제**까지의 흐름을 경험할 수 있으며,  
+
+사용자는 크롤링한 상품 데이터를 기반으로 **상품 선택 → 장바구니 담기 → 주문 → 결제**까지의 흐름을 경험,  
+
 추가로 **AI 챗봇 추천 기능**을 통해 개인화된 상품 추천과 구매 지원을 받을 수 있습니다.  
 
 **개발 기간**  
@@ -40,7 +42,7 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 
 ## 📊 ER 다이어그램
 1) [ER 다이어그램 링크(클릭)](https://dbdiagram.io/d/688c5d9ccca18e685cc6e2cf)
-<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
+<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
 
 **요약**
 - 총 **테이블 34개**, **외래키 42개**
