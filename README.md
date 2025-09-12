@@ -18,114 +18,29 @@ AI 1명, 백엔드 2명, 프론트엔드 2명
 ---
 
 ## 🔧 BE 기술 스택
-
-<div style="font-size: 12px; zoom: 0.85;">
-
-<table>
-  <thead>
-    <tr>
-      <th>영역 구분</th>
-      <th>기술 도구</th>
-      <th>선정 이유</th>
-      <th>사용처</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>언어 &amp;<br> 프레임워크</td>
-      <td>Java 17, Spring Boot 3.5.3</td>
-      <td>최신 LTS 기반의 안정성과 풍부한 레퍼런스를 제공하는 Spring Boot 선택</td>
-      <td>- REST API 서버 개발 <br> - 전자상거래 도메인 로직 구현</td>
-    </tr>
-    <tr>
-      <td>ORM/JPA</td>
-      <td>Spring Data JPA, QueryDSL</td>
-      <td>JPA로 CRUD 단순화, QueryDSL로 <br> <b>무한 스크롤(커서 기반) 페이징</b> 및 동적 쿼리 구현</td>
-      <td>- 상품 검색/조회 API <br> - 카테고리/브랜드 정렬·필터링</td>
-    </tr>
-    <tr>
-      <td>DB</td>
-      <td>MySQL 8.0</td>
-      <td>RDBMS 중 참고할 수 있는 레퍼런스가 가장 많은 MySQL을 선택했습니다.</td>
-      <td>- 상품 검색/조회 API <br> - 카테고리/브랜드 정렬·필터링</td>
-    </tr>
-    <tr>
-      <td>DB 마이그레이션</td>
-      <td>Flyway</td>
-      <td>DB 스키마 변경 이력을 버전 관리, 협업 충돌 최소화</td>
-      <td>- <code>V1__init.sql</code> 기반 테이블 생성 <br> - 배포 시 마이그레이션 자동 적용</td>
-    </tr>
-    <tr>
-      <td>캐시/세션 <br> 관리</td>
-      <td>Redis 7.0</td>
-      <td>In-Memory 기반으로 세션/토큰 <br> 저장 및 분산 락 제공</td>
-      <td>- Refresh Token 저장·검증 <br> - 로그아웃 시 토큰 삭제 <br> - 주문 동시성 제어 락</td>
-    </tr>
-    <tr>
-      <td>메시징 &amp; <br> 이벤트 <br> (진행중)</td>
-      <td>Apache Kafka + Zookeeper</td>
-      <td>대규모 이벤트 처리 및 비동기 확장성 확보</td>
-      <td>- 결제 완료 <br> → 주문 확정 이벤트 발행 <br> - 실시간 알림 이벤트 처리</td>
-    </tr>
-    <tr>
-      <td>보안 &amp; <br> 인증</td>
-      <td>Spring Security + JJWT</td>
-      <td>JWT 기반 인증/인가로 무상태 아키텍처 구현</td>
-      <td>- 로그인/로그아웃 API <br> - Access/Refresh  <br> → Token 발급 및 검증</td>
-    </tr>
-    <tr>
-      <td>API 문서화</td>
-      <td>Springdoc (Swagger UI)</td>
-      <td>API 테스트 및 문서화를 빠르게 지원</td>
-      <td>- <code>/swagger-ui.html</code>을 통한  <br> 개발/QA 협업</td>
-    </tr>
-    <tr>
-      <td>클라우드/ <br> 배포 <br> (진행중)</td>
-      <td>GitHub Actions, Docker Compose, AWS EC2</td>
-      <td>GitHub Actions로 CI/CD 자동화, Docker Compose로 환경 일관성 확보, AWS EC2 프리티어로 비용 절감</td>
-      <td>- main 브랜치 푸시 시  <br> 자동 빌드/배포 <br> - BE/DB/Redis/Kafka를 Docker Compose로 관리 <br> - AWS EC2에 배포</td>
-    </tr>
-    <tr>
-      <td>모니터링 <br> (진행중)</td>
-      <td>Scouter APM</td>
-      <td>WAS 성능 및 트랜잭션 모니터링 지원</td>
-      <td>- JVM/SQL 성능 모니터링 <br> - 실시간 로그 및 메트릭 확인</td>
-    </tr>
-    <tr>
-      <td>환경 변수 <br> 관리</td>
-      <td>.env</td>
-      <td>민감 정보 별도 관리로 보안 강화</td>
-      <td>- DB 계정, JWT Secret, <br>Kakao API Key 관리</td>
-    </tr>
-    <tr>
-      <td>프론트엔드</td>
-      <td>React(ts), Vite, Axios</td>
-      <td>빠른 번들링(Vite)과 간단한 API 호출(Axios)로 효율적인 UI/데이터 연동</td>
-      <td>- API 호출</td>
-    </tr>
-    <tr>
-      <td>빌드 도구</td>
-      <td>Gradle</td>
-      <td>의존성 관리 및 빌드 자동화</td>
-      <td>- Spring Boot 프로젝트 빌드/테스트/배포</td>
-    </tr>
-    <tr>
-      <td>테스트/협업</td>
-      <td>Postman, GitHub PR</td>
-      <td>API 테스트 및 협업 표준화</td>
-      <td>- API 시나리오 테스트 <br> - 브랜치 전략 &amp; 코드 리뷰</td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
+| 영역 구분       | 기술 도구                       | 선정 이유 | 사용처 |
+|----------------|--------------------------------|-----------|--------|
+| 언어 & <br> 프레임워크 | Java 17, Spring Boot 3.5.3      | 최신 LTS 기반의 안정성과 풍부한 레퍼런스를 제공하는 Spring Boot 선택 | - REST API 서버 개발 <br> - 전자상거래 도메인 로직 구현 |
+| ORM/JPA | Spring Data JPA, QueryDSL | JPA로 CRUD 단순화, QueryDSL로 <br> **무한 스크롤(커서 기반) 페이징** 및 동적 쿼리 구현 | - 상품 검색/조회 API <br> - 카테고리/브랜드 정렬·필터링 |
+| DB            | MySQL 8.0                       | RDBMS 중 참고할 수 있는 레퍼런스가 가장 많은 MySQL을 선택했습니다. | - 상품 검색/조회 API <br> - 카테고리/브랜드 정렬·필터링 |
+| DB 마이그레이션 | Flyway                          | DB 스키마 변경 이력을 버전 관리, 협업 충돌 최소화 | - `V1__init.sql` 기반 테이블 생성 <br> - 배포 시 마이그레이션 자동 적용 |
+| 캐시/세션 <br> 관리 | Redis 7.0 | In-Memory 기반으로 세션/토큰 <br> 저장 및 분산 락 제공 | - Refresh Token 저장·검증 <br> - 로그아웃 시 토큰 삭제 <br> - 주문 동시성 제어 락 |
+| 메시징 & <br> 이벤트 <br> (진행중) | Apache Kafka + Zookeeper        | 대규모 이벤트 처리 및 비동기 확장성 확보 | - 결제 완료 <br> → 주문 확정 이벤트 발행 <br> - 실시간 알림 이벤트 처리 |
+| 보안 & <br> 인증    | Spring Security + JJWT          | JWT 기반 인증/인가로 무상태 아키텍처 구현 | - 로그인/로그아웃 API <br> - Access/Refresh  <br> → Token 발급 및 검증 |
+| API 문서화     | Springdoc (Swagger UI)          | API 테스트 및 문서화를 빠르게 지원 | - `/swagger-ui.html`을 통한  <br> 개발/QA 협업 |
+| 클라우드/ <br> 배포 <br> (진행중) | GitHub Actions, Docker Compose, AWS EC2 | GitHub Actions로 CI/CD 자동화, Docker Compose로 환경 일관성 확보, AWS EC2 프리티어로 비용 절감 | - main 브랜치 푸시 시  <br> 자동 빌드/배포 <br> - BE/DB/Redis/Kafka를 Docker Compose로 관리 <br> - AWS EC2에 배포 |
+| 모니터링 <br> (진행중)    | Scouter APM                     | WAS 성능 및 트랜잭션 모니터링 지원 | - JVM/SQL 성능 모니터링 <br> - 실시간 로그 및 메트릭 확인 |
+| 환경 변수 <br> 관리  | .env                   | 민감 정보 별도 관리로 보안 강화 | - DB 계정, JWT Secret, <br>Kakao API Key 관리 |
+| 프론트엔드 | React(ts), Vite, Axios | 빠른 번들링(Vite)과 간단한 API 호출(Axios)로 효율적인 UI/데이터 연동 | - API 호출 |
+| 빌드 도구 | Gradle | 의존성 관리 및 빌드 자동화 | - Spring Boot 프로젝트 빌드/테스트/배포 |
+| 테스트/협업 | Postman, GitHub PR | API 테스트 및 협업 표준화 | - API 시나리오 테스트 <br> - 브랜치 전략 & 코드 리뷰 |
 
 
 ---
 
 ## 📊 ER 다이어그램
 [ER 다이어그램 링크(클릭)](https://dbdiagram.io/d/688c5d9ccca18e685cc6e2cf)
-<img width="720" height="360" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
+<img width="500" height="250" alt="image" src="https://github.com/user-attachments/assets/6efd3314-31c6-41c3-a221-a0a2c6f5f408" />
 
 **요약**
 - 총 **테이블 34개**, **외래키 42개**
